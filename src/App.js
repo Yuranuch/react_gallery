@@ -67,10 +67,18 @@ class App extends Component {
             <div className="App">
                 <div><h3>Commented</h3></div>
                 <div className="buttonWrap">
-
                     {!this.state.refresh?<button onClick={this.activateRefresh}>Start auto-refresh</button>
                 :<button onClick={this.deActivateRefresh}>Stop</button> }
-
+                <div>
+                    <input
+                        className="topFilter"
+                        type="range"
+                        value={0}
+                        min={0}
+                        max={500}
+                        step={5}
+                    />
+                </div>
                 </div>
                 {this.state.isLoading? <p>...LOADING</p> :
                     <div className="galleryWrap">
