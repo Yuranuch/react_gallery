@@ -1,7 +1,7 @@
 export const GET_ITEMS = "GET_ITEMS"
 
 const initialState = {
-    items: []
+    items: [],
 }
 
 export const reducer = (state=initialState, action) => {
