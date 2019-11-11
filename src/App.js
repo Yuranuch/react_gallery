@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import './App.css';
 import Card from "./Card";
 import {connect} from "react-redux";
-import {getItems, isLoading} from "./redux/reducer";
+import {getItems} from "./redux/reducer";
 import * as axios from "axios";
 
 class App extends Component {
     state = {
         isLoading: false,
-        refresh: false
+        refresh: false,
+        minComments: 0
     }
 
     getAllItems = () => {
@@ -16,45 +17,52 @@ class App extends Component {
             isLoading: true
         })
         axios.get("https://www.reddit.com/r/reactjs.json?limit=100")
-            .then (response => {
+            .then(response => {
                 this.setState({
                     isLoading: false
                 })
                 this.props.getItems(response.data.data.children)
             })
     }
+
     componentDidMount() {
-       this.getAllItems()
+        this.getAllItems()
     }
 
-    // onInterval = () => {
-    //     this.autoRefresh = setInterval(()=>{this.getAllItems()},3000)
-    // }
-
     activateRefresh = () => {
-        if(this.state.refresh===false){
+        if (this.state.refresh === false) {
             this.setState({refresh: true})
-            this.autoRefresh = setInterval(()=>{this.getAllItems()},3000)
-        }else {
+            this.autoRefresh = setInterval(() => {
+                this.getAllItems()
+            }, 3000)
+        } else {
             this.setState({refresh: false})
             clearInterval(this.autoRefresh)
         }
     }
 
     deActivateRefresh = () => {
-        if(this.state.refresh===true){
+        if (this.state.refresh === true) {
             this.setState({refresh: false})
             clearInterval(this.autoRefresh)
 
-        }else {
+        } else {
             this.setState({refresh: true})
-            this.autoRefresh = setInterval(()=>{this.getAllItems()},3000)
+            this.autoRefresh = setInterval(() => {
+                this.getAllItems()
+            }, 3000)
         }
     }
 
+    onchangeMinComments = (e) => {
+        this.setState({
+            minComments: Number(e.currentTarget.value)
+        })
+    }
+
     render() {
-        const commentsSort = this.props.items.sort((a,b)=>b.data.num_comments - a.data.num_comments)
-        const itemElements = commentsSort.map(i =><Card
+        const commentsSort = this.props.items.sort((a, b) => b.data.num_comments - a.data.num_comments)
+        const itemElements = commentsSort.map(i => <Card
             id={i.data.id}
             key={i.data.id}
             title={i.data.title}
@@ -67,20 +75,23 @@ class App extends Component {
             <div className="App">
                 <div><h3>Commented</h3></div>
                 <div className="buttonWrap">
-                    {!this.state.refresh?<button onClick={this.activateRefresh}>Start auto-refresh</button>
-                :<button onClick={this.deActivateRefresh}>Stop</button> }
-                <div>
-                    <input
-                        className="topFilter"
-                        type="range"
-                        value={0}
-                        min={0}
-                        max={500}
-                        step={5}
-                    />
+                    {!this.state.refresh ? <button onClick={this.activateRefresh}>Start auto-refresh</button>
+                        : <button onClick={this.deActivateRefresh}>Stop</button>}
+                    <div>
+                        <span>Current Filter {this.state.minComments}</span>
+                    </div>
+                    <div>
+                        <input
+                            className="topFilter"
+                            type="range"
+                            value={this.state.minComments}
+                            min={0}
+                            max={500}
+                            onChange={this.onchangeMinComments}
+                        />
+                    </div>
                 </div>
-                </div>
-                {this.state.isLoading? <p>...LOADING</p> :
+                {this.state.isLoading ? <p>...LOADING</p> :
                     <div className="galleryWrap">
                         {itemElements}
                     </div>}
@@ -90,7 +101,6 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-    debugger
     return {
         items: state.items,
         isLoading: state.isLoading
@@ -105,5 +115,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App) ;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
