@@ -1,7 +1,6 @@
 .card {
     width: 200px;
     border: 1px solid red;
-
 }
 .title {
     display: block;
@@ -14,4 +13,7 @@
 .comments {
     display: block;
     text-align: left;
+}
+.card img {
+    width: 100%;
 }

@@ -1,15 +1,16 @@
 import React from 'react';
 import styles from './Card.module.css';
 
-function Card() {
+function Card(props) {
     return (
         <div className={styles.card}>
-            <img src="" alt="" />
+            id: {props.id}
+            <img src={props.srcImg} alt="" />
             <span className={styles.title}>
-                first image
+                {props.title}
             </span>
             <span className={styles.comments}>
-                Number of comments:
+                Number of comments: {props.comments}
             </span>
             <a href="#" className={styles.link}>Link</a>
         </div>

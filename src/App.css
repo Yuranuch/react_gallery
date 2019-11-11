@@ -1,10 +1,12 @@
 .App {
   text-align: center;
-}
-.galleryWrap {
-  border: 1px solid;
   width: 1000px;
   margin: 0 auto;
+  border: 1px solid;
+}
+.galleryWrap {
+
+
   display: flex;
   justify-content: space-around;
 }
