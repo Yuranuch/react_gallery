@@ -1,0 +1,17 @@
+.card {
+    width: 200px;
+    border: 1px solid red;
+
+}
+.title {
+    display: block;
+    text-align: left;
+}
+.link {
+    display: block;
+    text-align: left;
+}
+.comments {
+    display: block;
+    text-align: left;
+}
