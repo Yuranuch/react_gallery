@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import './App.css';
+import styles from './App.module.css';
 import Card from "./Card";
 import {connect} from "react-redux";
 import {getItems} from "./redux/reducer";
@@ -59,7 +59,6 @@ class App extends PureComponent {
             minComments: Number(e.currentTarget.value)
         })
     }
-
     render() {
         const commentsSort = this.props.items.sort((a, b) => b.data.num_comments - a.data.num_comments)
             .filter(i => i.data.num_comments >= this.state.minComments)
@@ -73,27 +72,27 @@ class App extends PureComponent {
         />)
 
         return (
-            <div className="App">
+            <div className={styles.App}>
                 <div><h3>Commented</h3></div>
-                <div className="buttonWrap">
-                    {!this.state.refresh ? <button onClick={this.activateRefresh}>Start auto-refresh</button>
+                <div className={styles.buttonWrap}>
+                    {!this.state.refresh ? <button className={styles.filterButton} onClick={this.activateRefresh}>Start auto-refresh</button>
                         : <button onClick={this.deActivateRefresh}>Stop</button>}
-                    <div>
+                    <div className={styles.display}>
                         <span>Current Filter: {this.state.minComments}</span>
                     </div>
                     <div>
                         <input
-                            className="topFilter"
+                            className={styles.topFilter}
                             type="range"
                             value={this.state.minComments}
                             min={0}
-                            max={500}
+                            max={200}
                             onChange={this.onchangeMinComments}
                         />
                     </div>
                 </div>
                 {this.state.isLoading ? <p>...LOADING</p> :
-                    <div className="galleryWrap">
+                    <div className={styles.galleryWrap}>
                         {itemElements.length > 0 ? itemElements : <p>No result</p>}
                     </div>}
             </div>
@@ -104,7 +103,6 @@ class App extends PureComponent {
 const mapStateToProps = (state) => {
     return {
         items: state.items,
-        isLoading: state.isLoading
     }
 }
 

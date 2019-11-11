@@ -1,18 +1,27 @@
 .card {
     width: 200px;
-    border: 1px solid red;
+    padding: 5px;
+    background-color: ghostwhite;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card a {
+    text-decoration: none;
+    color: dimgray;
+    font-weight: bold;
+    font-size: 13px;
 }
 .title {
     display: block;
     text-align: left;
 }
-.link {
-    display: block;
-    text-align: left;
-}
 .comments {
+    margin-top: 20px;
     display: block;
-    text-align: left;
+    text-align: right;
+    font-size: 12px;
 }
 .card img {
     width: 100%;
