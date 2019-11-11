@@ -2,13 +2,33 @@ import React, {Component} from 'react';
 import './App.css';
 import Card from "./Card";
 import {connect} from "react-redux";
+import {getItems} from "./redux/reducer";
+import * as axios from "axios";
 
 class App extends Component {
 
+    componentDidMount() {
+        axios.get("https://www.reddit.com/r/reactjs.json?limit=100")
+            .then (response => {
+                debugger
+                this.props.getItems(response.data.data.children)
+            })
+            //     return response.json();
+            // })
+            // .then(data => {
+            //     console.log(data)
+            // })
+    }
 
     render() {
-        debugger
-        const itemElements = this.props.items.map(t =><Card id={t.id} title={t.title} srcImg={t.srcImg} comments={t.comments} />)
+        const itemElements = this.props.items.map(i =><Card
+            id={i.data.id}
+            key={i.data.id}
+            title={i.data.title}
+            srcImg={i.data.thumbnail}
+            comments={i.data.num_comments}
+            permalink={i.data.permalink}
+        />)
         return (
             <div className="App">
                 <div><h3>Commented</h3></div>
@@ -22,10 +42,18 @@ class App extends Component {
 }
 
 const mapStateToProps = (state) => {
-    debugger
     return {
         items: state.items
     }
 }
+const mapDispatchToProps = (dispatch) => {
 
-export default connect(mapStateToProps, null)(App) ;
+    return {
+        getItems: (data) => {
+            dispatch(getItems(data))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App) ;
+

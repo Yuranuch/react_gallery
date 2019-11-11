@@ -12,7 +12,7 @@ function Card(props) {
             <span className={styles.comments}>
                 Number of comments: {props.comments}
             </span>
-            <a href="#" className={styles.link}>Link</a>
+            <a href={`https://www.reddit.com${props.permalink}`} className={styles.link}>Link</a>
         </div>
     );
 }

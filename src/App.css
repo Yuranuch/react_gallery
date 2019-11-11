@@ -5,8 +5,7 @@
   border: 1px solid;
 }
 .galleryWrap {
-
-
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-around;
 }
