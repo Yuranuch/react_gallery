@@ -7,10 +7,11 @@ import * as axios from "axios";
 
 class App extends Component {
     state = {
-        isLoading: false
+        isLoading: false,
+        refresh: false
     }
 
-    componentDidMount() {
+    getAllItems = () => {
         this.setState({
             isLoading: true
         })
@@ -21,6 +22,34 @@ class App extends Component {
                 })
                 this.props.getItems(response.data.data.children)
             })
+    }
+    componentDidMount() {
+       this.getAllItems()
+    }
+
+    // onInterval = () => {
+    //     this.autoRefresh = setInterval(()=>{this.getAllItems()},3000)
+    // }
+
+    activateRefresh = () => {
+        if(this.state.refresh===false){
+            this.setState({refresh: true})
+            this.autoRefresh = setInterval(()=>{this.getAllItems()},3000)
+        }else {
+            this.setState({refresh: false})
+            clearInterval(this.autoRefresh)
+        }
+    }
+
+    deActivateRefresh = () => {
+        if(this.state.refresh===true){
+            this.setState({refresh: false})
+            clearInterval(this.autoRefresh)
+
+        }else {
+            this.setState({refresh: true})
+            this.autoRefresh = setInterval(()=>{this.getAllItems()},3000)
+        }
     }
 
     render() {
@@ -37,8 +66,12 @@ class App extends Component {
         return (
             <div className="App">
                 <div><h3>Commented</h3></div>
-                <button>Start auto-refresh</button>
-                <button>Stop</button>
+                <div className="buttonWrap">
+
+                    {!this.state.refresh?<button onClick={this.activateRefresh}>Start auto-refresh</button>
+                :<button onClick={this.deActivateRefresh}>Stop</button> }
+
+                </div>
                 {this.state.isLoading? <p>...LOADING</p> :
                     <div className="galleryWrap">
                         {itemElements}
@@ -51,13 +84,12 @@ class App extends Component {
 const mapStateToProps = (state) => {
     debugger
     return {
-
         items: state.items,
         isLoading: state.isLoading
     }
 }
-const mapDispatchToProps = (dispatch) => {
 
+const mapDispatchToProps = (dispatch) => {
     return {
         getItems: (data) => {
             dispatch(getItems(data))

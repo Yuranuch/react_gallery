@@ -9,3 +9,6 @@
   display: flex;
   justify-content: space-around;
 }
+.buttonWrap {
+  margin-bottom: 30px;
+}
