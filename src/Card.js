@@ -5,7 +5,7 @@ function Card(props) {
     return (
         <div className={styles.card}>
             id: {props.id}
-            <img src={props.srcImg} alt="" />
+            <img src={props.srcImg} alt=""/>
             <span className={styles.title}>
                 {props.title}
             </span>

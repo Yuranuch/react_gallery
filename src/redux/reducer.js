@@ -4,7 +4,7 @@ const initialState = {
     items: [],
 }
 
-export const reducer = (state=initialState, action) => {
+export const reducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ITEMS:
             return {
@@ -13,7 +13,7 @@ export const reducer = (state=initialState, action) => {
             }
     }
 
-   return state
+    return state
 }
 
 export const getItems = (data) => ({type: GET_ITEMS, data})

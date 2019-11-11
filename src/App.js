@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import './App.css';
 import Card from "./Card";
 import {connect} from "react-redux";
 import {getItems} from "./redux/reducer";
 import * as axios from "axios";
 
-class App extends Component {
+class App extends PureComponent {
     state = {
         isLoading: false,
         refresh: false,
@@ -62,6 +62,7 @@ class App extends Component {
 
     render() {
         const commentsSort = this.props.items.sort((a, b) => b.data.num_comments - a.data.num_comments)
+            .filter(i => i.data.num_comments >= this.state.minComments)
         const itemElements = commentsSort.map(i => <Card
             id={i.data.id}
             key={i.data.id}
@@ -78,7 +79,7 @@ class App extends Component {
                     {!this.state.refresh ? <button onClick={this.activateRefresh}>Start auto-refresh</button>
                         : <button onClick={this.deActivateRefresh}>Stop</button>}
                     <div>
-                        <span>Current Filter {this.state.minComments}</span>
+                        <span>Current Filter: {this.state.minComments}</span>
                     </div>
                     <div>
                         <input
@@ -93,7 +94,7 @@ class App extends Component {
                 </div>
                 {this.state.isLoading ? <p>...LOADING</p> :
                     <div className="galleryWrap">
-                        {itemElements}
+                        {itemElements.length > 0 ? itemElements : <p>No result</p>}
                     </div>}
             </div>
         );
