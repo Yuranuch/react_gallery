@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
-import styles from './App.module.css';
-import Card from "./Card";
-import {connect} from "react-redux";
-import {getItems} from "./redux/reducer";
-import * as axios from "axios";
+import React, {PureComponent} from "react"
+import styles from "./App.module.css"
+import Card from "./Card"
+import {connect} from "react-redux"
+import {getItems} from "./redux/reducer"
+import * as axios from "axios"
 
 class App extends PureComponent {
     state = {
@@ -45,7 +45,6 @@ class App extends PureComponent {
         if (this.state.refresh === true) {
             this.setState({refresh: false})
             clearInterval(this.autoRefresh)
-
         } else {
             this.setState({refresh: true})
             this.autoRefresh = setInterval(() => {
@@ -59,6 +58,7 @@ class App extends PureComponent {
             minComments: Number(e.currentTarget.value)
         })
     }
+
     render() {
         const commentsSort = this.props.items.sort((a, b) => b.data.num_comments - a.data.num_comments)
             .filter(i => i.data.num_comments >= this.state.minComments)
@@ -73,10 +73,15 @@ class App extends PureComponent {
 
         return (
             <div className={styles.App}>
-                <div><h3>Commented</h3></div>
+                <div className={styles.header}><h3>User reviews and articles</h3></div>
                 <div className={styles.buttonWrap}>
-                    {!this.state.refresh ? <button className={styles.filterButton} onClick={this.activateRefresh}>Start auto-refresh</button>
-                        : <button onClick={this.deActivateRefresh}>Stop</button>}
+                    {!this.state.refresh ?
+                        <div>
+                            <button className={styles.filterButton} onClick={this.activateRefresh}>Start auto-refresh
+                            </button>
+                        </div>
+                        : <button className={styles.filterButton} onClick={this.deActivateRefresh}>Stop
+                            auto-refresh</button>}
                     <div className={styles.display}>
                         <span>Current Filter: {this.state.minComments}</span>
                     </div>
@@ -96,7 +101,7 @@ class App extends PureComponent {
                         {itemElements.length > 0 ? itemElements : <p>No result</p>}
                     </div>}
             </div>
-        );
+        )
     }
 }
 
@@ -114,5 +119,5 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 

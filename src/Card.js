@@ -1,9 +1,8 @@
-import React, {Component} from 'react';
-import styles from './Card.module.css';
+import React, {Component} from "react"
+import styles from "./Card.module.css"
 
 class Card extends Component {
     constructor (props) {
-        debugger
         super(props)
     }
     render() {
@@ -26,4 +25,4 @@ class Card extends Component {
     }
 }
 
-export default Card;
+export default Card

@@ -7,22 +7,26 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
 .card a {
     text-decoration: none;
     color: dimgray;
     font-weight: bold;
     font-size: 13px;
 }
+
 .title {
     display: block;
     text-align: left;
 }
+
 .comments {
     margin-top: 20px;
     display: block;
     text-align: right;
     font-size: 12px;
 }
+
 .card img {
     width: 100%;
 }

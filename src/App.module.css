@@ -1,30 +1,54 @@
 .App {
-  text-align: center;
-  width: 1000px;
-  margin: 0 auto;
-  border: 1px solid darkgrey;
+    text-align: center;
+    width: 1000px;
+    margin: 0 auto;
+    border: 1px solid darkgrey;
 }
-.galleryWrap {
-  flex-wrap: wrap;
-  display: flex;
-  justify-content: space-around;
-}
-.buttonWrap {
-  margin-bottom: 30px;
-}
-.topFilter {
-  width: 90%;
-}
-.display {
-  text-align: left;
-  width: 90%;
-  margin: 0 auto 10px auto;
-}
-.display span {
-  font-weight: bold;
-  color: dimgrey;
-}
-.filterButton {
-  border: 3px solid dimgrey;
 
+.header {
+    background-color: powderblue;
+}
+
+.galleryWrap {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttonWrap {
+    margin-bottom: 30px;
+}
+
+.topFilter {
+    width: 90%;
+}
+
+.display {
+    text-align: left;
+    width: 90%;
+    margin: 0 auto 10px auto;
+}
+
+.display span {
+    font-weight: bold;
+    color: dimgrey;
+}
+
+.filterButton {
+    border: 3px solid dimgrey;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    background: darkgrey;
+}
+
+.filterButton:hover {
+    background: gainsboro;
+}
+
+.buttonWrap {
+    text-align: right;
+    width: 90%;
+    margin: 0 auto 0 auto;
 }
